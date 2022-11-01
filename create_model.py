@@ -24,13 +24,16 @@ model.add(tf.keras.layers.Dense(128, activation="relu"))
 # softmax activation function for probability distribution output, with highest # as the model's classification
 model.add(tf.keras.layers.Dense(10, activation="softmax"))
 
+
 model.compile(
         loss=tf.keras.losses.SparseCategoricalCrossentropy(),
         optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+        metrics=["accuracy"],
         )
 
 # train model
-model.fit(x_train, y_train, epochs=3)
+model.fit(x_train, y_train, epochs=5)
+
 
 # save model
 model.save("digit_recognition_128_128_10.model")
