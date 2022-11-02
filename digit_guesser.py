@@ -119,8 +119,9 @@ def main():
             if pygame.mouse.get_pressed()[0]:
                 # if left click, color the tile black
                 pos = pygame.mouse.get_pos()
-                clicked = canvas.getTile(pos)
-                clicked.color = BLACK;
+                currentTile = canvas.getTile(pos)
+                if(currentTile):
+                    currentTile.color = BLACK;
 
             if event.type == pygame.QUIT:
                 pygame.quit()
