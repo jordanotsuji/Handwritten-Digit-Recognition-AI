@@ -3,11 +3,7 @@ Written by Jordan Otsuji
 
 create_model.py trains the model and saves it for later use
 """
-import cv2
-import os
-import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
 
 # MNIST dataset contains 28x28 pixel labeled hand written digits 
 mnist = tf.keras.datasets.mnist

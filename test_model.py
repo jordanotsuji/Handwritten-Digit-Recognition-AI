@@ -3,11 +3,7 @@ Written by Jordan Otsuji
 
 test_model.py tests the accuracy of the model(s) created by create_model.py
 """
-import cv2
-import os
-import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
 
 # Load data again
 mnist = tf.keras.datasets.mnist
