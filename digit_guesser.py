@@ -25,7 +25,7 @@ class Tile:
 class Canvas:
     def __init__(self, rows, columns, width, height):
         self.rows = rows
-        self.cols = columns
+        self.columns = columns
         self.len = rows * columns
         self.width = width
         self.height = height
@@ -44,23 +44,27 @@ class Canvas:
         """
         Returns the tile that was clicked on by the user based on the click's location on the canvas
         """
-        x = clickPosition[0]
-        y = clickPosition[1]
-        # integer division by tile width and height to get clicked tile's row and col
-        col = int(x) // self.tiles[0][0].width
-        row = int(y) // self.tiles[0][0].height
-        return self.tiles[row][col]
+        try:
+            x = clickPosition[0]
+            y = clickPosition[1]
+            # integer division by tile width and height to get clicked tile's row and col
+            col = int(x) // self.tiles[0][0].width
+            row = int(y) // self.tiles[0][0].height
+            return self.tiles[row][col]
+        except:
+            pass
+
 
     def initTiles(self):
         """
         Initializes the tiles in this canvas and assigns them evenly spaced x and y coordinates 
         """
-        tile_width = self.width // self.cols
+        tile_width = self.width // self.columns
         tile_height = self.height // self.rows
 
         for row in range(self.rows):
             self.tiles.append([])
-            for column in range(self.cols):
+            for column in range(self.columns):
                 # initialize each tile with x and y values as tile width and height * row and column for automatic spacing
                 self.tiles[row].append(Tile(tile_width * column, tile_height * row, tile_width, tile_height))
 
@@ -68,8 +72,9 @@ class Canvas:
         """
         Clears the current canvas
         """
-        self.tiles = []
-        self.initTiles()
+        for i in range(self.rows):
+            for j in range(self.columns):
+                self.tiles[i][j].color = WHITE
 
     
     def convert_to_feature(self):
