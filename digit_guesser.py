@@ -1,3 +1,8 @@
+"""
+Written by Jordan Otsuji
+
+digit_guesser.py prompts the user to draw a digit on the canvas, which the model will attempt to classify
+"""
 import pygame
 import tensorflow as tf
 import numpy as np
@@ -88,7 +93,7 @@ class Canvas:
         # Build feature matrix one tile at a time based on color
         for i in range(len(current_tiles)):
             for j in range(len(current_tiles[i])):
-                if current_tiles[i][j].color == WHITE:
+                if(current_tiles[i][j].color == WHITE):
                     feature[i].append(0)
                 else:
                     feature[i].append(1)
@@ -106,24 +111,25 @@ def main():
     """
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
+            if(event.type == pygame.KEYDOWN):
                 if(event.key == pygame.K_RETURN):
                     # if enter is pressed, print the model's guess
                     probabilities = model.predict(canvas.convert_to_feature())
                     print(f'Predicted Probabilities: \n\t{probabilities[0]}')
                     prediction = np.argmax(probabilities[0])
                     print(f"Model Prediction: {prediction}")
+
                 elif(event.key == pygame.K_r):
                     canvas.clear()
 
-            if pygame.mouse.get_pressed()[0]:
+            if(pygame.mouse.get_pressed()[0]):
                 # if left click, color the tile black
                 pos = pygame.mouse.get_pos()
                 currentTile = canvas.getTile(pos)
                 if(currentTile):
                     currentTile.color = BLACK;
 
-            if event.type == pygame.QUIT:
+            if(event.type == pygame.QUIT):
                 pygame.quit()
                 quit(0)
 
