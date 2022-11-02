@@ -29,6 +29,7 @@ class Canvas:
         self.width = width
         self.height = height
         self.tiles = []
+        self.initTiles()
 
     def draw(self, canvas):
         """
@@ -48,10 +49,41 @@ class Canvas:
         col = int(x) // self.tiles[0][0].width
         row = int(y) // self.tiles[0][0].height
         return self.tiles[row][col]
+
+    def initTiles(self):
+        """
+        Initializes the tiles in this canvas and assigns them evenly spaced x and y coordinates 
+        """
+        tile_width = self.width // self.cols
+        tile_height = self.height // self.rows
+
+        for row in range(self.rows):
+            self.tiles.append([])
+            for column in range(self.cols):
+                # initialize each tile with x and y values as tile width and height * row and column for automatic spacing
+                self.tiles[row].append(Tile(tile_width * column, tile_height * row, tile_width, tile_height))
+
     
     def convert_to_feature(self):
         """
         Converts the current canvas data to an array for the model to use for prediction
         """
+        current_tiles = self.tiles
+
+        feature = [[] for i in range(len(current_tiles))]
+
+        # Build feature matrix one tile at a time based on color
+        for i in range(len(current_tiles)):
+            for j in range(len(current_tiles[i])):
+                if current_tiles[i][j].color == WHITE:
+                    feature[i].append(0)
+                else:
+                    feature[i].append(1)
+
+        # TF requires another surrounding [] for correct dimensions
+        # results in (, 28, 28) array
+        tf_compatable_feature = []
+        tf_compatable_feature.append(feature)
+        return tf_compatable_feature
 
 
