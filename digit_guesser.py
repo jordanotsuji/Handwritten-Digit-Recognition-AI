@@ -115,11 +115,11 @@ def main():
                 if(event.key == pygame.K_RETURN):
                     # if enter is pressed, print the model's guess
                     probabilities = model.predict(canvas.convert_to_feature())
-                    print(f'Predicted Probabilities: \n\t{probabilities[0]}')
+                    print(f'Predicted Probabilities: \n\t{probabilities}')
                     prediction = np.argmax(probabilities[0])
                     print(f"Model Prediction: {prediction}")
 
-                elif(event.key == pygame.K_r):
+                elif(event.key == pygame.K_c or event.key == pygame.K_r):
                     canvas.clear()
 
             if(pygame.mouse.get_pressed()[0]):
@@ -146,7 +146,3 @@ pygame.display.set_caption("Handwritten Digit Classification AI")
 
 # main loop
 main()
-
-# Exit gracefully 
-pygame.quit()
-quit()
